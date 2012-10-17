@@ -41,7 +41,7 @@ An `Mongo::Connection` instance represents a connection to MongoDB.
 
     connection = Mongo::Connection.new("localhost", 27017, :safe => true)
 
-The option :safe => true is highly recommended.  This specifies that the driver sends a getlasterror command after every update to ensure that the update succeeded.
+The option `:safe => true` is highly recommended.  This specifies that the driver sends a getlasterror command after every update to ensure that the update succeeded.
 
 You can optionally specify the MongoDB server address and port when connecting. The following example shows three ways to connect to the local machine:
 
@@ -49,7 +49,7 @@ You can optionally specify the MongoDB server address and port when connecting. 
     connection = Mongo::Connection.new("localhost")
     connection = Mongo::Connection.new("localhost", 27017)
 
-In these cases, the :safe option defaults to false, and updates are fire-and-forget with higher performance.  We do not recommend the default :safe => false unless your application can tolerate the potential loss of updates.
+In these cases, the :safe option defaults to false, and updates are fire-and-forget with higher performance.  We do not recommend the default `:safe => false` unless your application can tolerate the potential loss of updates.
 
 ### Listing All Databases
 
