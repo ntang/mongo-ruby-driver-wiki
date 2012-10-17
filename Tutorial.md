@@ -2,8 +2,6 @@
 
 This tutorial gives many common examples of using MongoDB with the Ruby driver. If you're looking for information on data modeling, see [MongoDB Data Modeling and Rails](http://www.mongodb.org/display/DOCS/MongoDB+Data+Modeling+and+Rails). Links to the various object mappers are listed on our [object mappers page](http://www.mongodb.org/display/DOCS/Object+Mappers+for+Ruby+and+MongoDB).
 
-As always, the [latest source for the Ruby driver](http://github.com/mongodb/mongo-ruby-driver) can be found on [github](http://github.com/mongodb/mongo-ruby-driver/).
-
 ## Installation
 
 The mongo-ruby-driver gem is served through Rubygems.org. To install, make sure you have the latest version of rubygems.
