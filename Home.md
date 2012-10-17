@@ -1,5 +1,6 @@
 ## Basic Features
 * [[Tutorial]]
+* [[FAQ]]
 
 ## Multiple Nodes
 * [[Replica Sets]]
