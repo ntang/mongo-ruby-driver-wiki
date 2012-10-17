@@ -83,7 +83,7 @@ You can get a collection to use using the `collection` method:
 
     coll = db.collection("testCollection")
 
-This is aliased to the \[\] method:
+This is aliased to the `[]` method:
 
     coll = db["testCollection"]
 
@@ -118,7 +118,7 @@ Each database has zero or more collections.  You can retrieve a list of them fro
 
 You should see
 
-	\["testCollection", "system.indexes"\]
+	["testCollection", "system.indexes"]
 
 #### Adding Multiple Documents
 
