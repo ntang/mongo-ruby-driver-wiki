@@ -11,5 +11,7 @@
 * [[Tailable Cursors]]
 * [[GridFS]]
 
-## 10gen
+## Extra Info
+* [[History]]
+* [[Credits]]
 * [[Releases]]
