@@ -32,8 +32,8 @@ As you execute commands, irb will output the result using the `inspect` method. 
 
 Use the `mongo` gem via the `require` kernel method.
 ```ruby
-    require 'rubygems'  # not necessary for Ruby 1.9
-    require 'mongo'
+require 'rubygems'  # not necessary for Ruby 1.9
+require 'mongo'
 ```
 ### Making a Connection
 
