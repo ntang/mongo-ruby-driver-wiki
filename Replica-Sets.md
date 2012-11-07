@@ -11,15 +11,20 @@ takes a list of seed nodes followed by any connection options. You'll want to sp
 the driver more chances to connect in the event that any one seed node is offline. Once the driver connects, it will
 cache the replica set topology as reported by the given seed node and use that information if a failover is later required.
 ```ruby
-@connection = ReplSetConnection.new(['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'], :safe => true)
+@connection = ReplSetConnection.new(
+  ['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'],
+  :safe => true
+)
 ```
 ### Read slaves
 
 If you want to read from a secondary node, you can pass :read => :secondary to ReplSetConnection#new.
-
-    @connection = ReplSetConnection.new(['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'],
-                  :safe => true, :read => :secondary)
-
+```ruby
+@connection = ReplSetConnection.new(
+  ['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'],
+  :safe => true, :read => :secondary
+)
+```
 A random secondary will be chosen to be read from. In a typical multi-process Ruby application, you'll have a good distribution of reads across secondary nodes.
 
 ### Connection Failures
@@ -55,47 +60,55 @@ However, if you expect to make live changes to your secondaries, and you want th
 having to manually restart your app server, then you should enable it. You can enable this mode
 synchronously, which will refresh the replica set data in a synchronous fashion (which may
 occasionally slow down your queries):
-
-    @connection = ReplSetConnection.new(['n1.mydb.net:27017'], :safe => true, :refresh_mode => :sync)
-
+```ruby
+@connection = ReplSetConnection.new(['n1.mydb.net:27017'], :safe => true, :refresh_mode => :sync)
+```
 If you want to change the default refresh interval of 90 seconds, you can do so like this:
-
-    @connection = ReplSetConnection.new(['n1.mydb.net:27017'], :safe => true, :refresh_mode => :sync,
-        :refresh_interval => 60)
-
+```ruby
+@connection = ReplSetConnection.new(
+  ['n1.mydb.net:27017'],
+  :safe => true,
+  :refresh_mode => :sync,
+  :refresh_interval => 60
+)
+```
 Do not set this value to anything lower than 30, or you may start to experience performance issues.
 
 You can also disable refresh mode altogether:
-
-    @connection = ReplSetConnection.new(['n1.mydb.net:27017'], :safe => true, :refresh_mode => false)
-
+```ruby
+@connection = ReplSetConnection.new(
+  ['n1.mydb.net:27017'],
+  :safe => true,
+  :refresh_mode => false
+)
+```
 And you can call `refresh` manually on any replica set connection:
-
-    @connection.refresh
-
+```ruby
+@connection.refresh
+```
 ### Recovery
 
 Driver users may wish to wrap their database calls with failure recovery code. Here's one possibility, which will attempt to connection
 every half second and time out after thirty seconds.
+```ruby
+# Ensure retry upon failure
+def rescue_connection_failure(max_retries=60)
+  retries = 0
+  begin
+    yield
+  rescue Mongo::ConnectionFailure => ex
+    retries += 1
+    raise ex if retries > max_retries
+    sleep(0.5)
+    retry
+  end
+end
 
-    # Ensure retry upon failure
-    def rescue_connection_failure(max_retries=60)
-      retries = 0
-      begin
-        yield
-      rescue Mongo::ConnectionFailure => ex
-        retries += 1
-        raise ex if retries > max_retries
-        sleep(0.5)
-        retry
-      end
-    end
-
-    # Wrapping a call to #count()
-    rescue_connection_failure do
-      @db.collection('users').count()
-    end
-
+# Wrapping a call to #count()
+rescue_connection_failure do
+  @db.collection('users').count()
+end
+```
 Of course, the proper way to handle connection failures will always depend on the individual application. We encourage object-mapper and application developers to publish any promising results.
 
 ### Testing
