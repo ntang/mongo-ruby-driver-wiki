@@ -10,9 +10,9 @@ Use `ReplSetConnection.new` to connect to a replica set. This method, which acce
 takes a list of seed nodes followed by any connection options. You'll want to specify at least two seed nodes. This gives
 the driver more chances to connect in the event that any one seed node is offline. Once the driver connects, it will
 cache the replica set topology as reported by the given seed node and use that information if a failover is later required.
-
-    @connection = ReplSetConnection.new(['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'], :safe => true)
-
+```ruby
+@connection = ReplSetConnection.new(['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'], :safe => true)
+```
 ### Read slaves
 
 If you want to read from a secondary node, you can pass :read => :secondary to ReplSetConnection#new.
