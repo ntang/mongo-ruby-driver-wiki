@@ -31,10 +31,10 @@ As you execute commands, irb will output the result using the `inspect` method. 
 ### Using the gem
 
 Use the `mongo` gem via the `require` kernel method.
-
+```ruby
     require 'rubygems'  # not necessary for Ruby 1.9
     require 'mongo'
-
+```
 ### Making a Connection
 
 An `Mongo::Connection` instance represents a connection to MongoDB.
