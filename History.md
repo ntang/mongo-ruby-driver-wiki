@@ -1,5 +1,10 @@
 # MongoDB Ruby Driver History
 
+### 1.7.1
+2012-11-16
+
+* Adding a fix for an issue that was breaking replica set connections when utilizing database authentication.
+
 ### 1.7.0
 2012-08-20
 
