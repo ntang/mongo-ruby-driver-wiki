@@ -24,8 +24,8 @@ The Ruby driver allows you to set read preference on each of four levels: the co
 Objects will inherit the default read preference from their parents. Thus, if you set a read preference of `{:read => :secondary}` when creating
 a new connection, then all databases and collections created from that connection will inherit the same setting. See this code example:
 
-    @con = Mongo::ReplSetConnection.new(['localhost:27017','localhost:27018'], :safe => true, :read => :secondary)
-    @db  = @con['test']
+    @mongo_client = Mongo::ReplSetClient.new(['localhost:27017','localhost:27018'], :read => :secondary)
+    @db  = @mongo_client['test']
     @collection = @db['foo']
     @collection.find({:name => 'foo'})
 
@@ -36,7 +36,7 @@ to Collection#find overrides this setting by setting the preference to `:primary
 
 You can examine the read preference on any object by calling its `read_preference` method:
 
-    @con.read_preference
+    @mongo_client.read_preference
     @db.read_preference
     @collection.read_preference
 
@@ -46,15 +46,15 @@ You can using the `:read` option to specify a query's read preference mode. Ther
 
 ### :primary
 
-With primary, all read operations from the client will use the primary member only. This is the default read preference.
+With primary, all read operations from the application will use the primary member only. This is the default read preference.
 
-If the primary is unavailable, all operations with this preference produce an error or throw an exception. Primary read preference modes are not compatible with read preferences modes that use tag sets If you specify a tag set with primary, the driver will produce an error.
+If the primary is unavailable, all operations with this preference produce an error or throw an exception. Primary read preference modes are not compatible with read preferences modes that use tag sets. If you specify a tag set with primary, the driver will produce an error.
 
 ### :primary_preferred
 
 With the primaryPreferred read preference mode, operations will read from the primary member of the set in most situations. However, if the primary is unavailable, as is the case during failover situations, then these read operations can read from secondary members.
 
-When the read preference includes a tag set, the client will first read from the primary, if it is available, and then from secondaries that match the specified tags. If there are no secondaries with tags that match the specified tags, this read operation will produce an error.
+When the read preference includes a tag set, the application will first read from the primary, if it is available, and then from secondaries that match the specified tags. If there are no secondaries with tags that match the specified tags, this read operation will produce an error.
 
 ### :secondary
 
@@ -62,7 +62,7 @@ With the secondary read preference mode, operations will read from the secondary
 
 Most sets have at least one secondary, but there are situations where there may not be an available secondary. For example, a set with a primary, a secondary, and an arbiter may not have any secondaries if a member is ever in recovering mode.
 
-When the read preference includes a tag set, the client will attempt to find a secondary members that match the specified tag set and directs reads to a random secondary from among the nearest group. If there are no secondaries with tags that match the specified tag set, this read operation will produce an error.
+When the read preference includes a tag set, the application will attempt to find a secondary members that match the specified tag set and directs reads to a random secondary from among the nearest group. If there are no secondaries with tags that match the specified tag set, this read operation will produce an error.
 
 ### :secondary_preferred
 

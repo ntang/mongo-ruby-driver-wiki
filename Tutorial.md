@@ -37,39 +37,40 @@ require 'mongo'
 ```
 ### Making a Connection
 
-An `Mongo::Connection` instance represents a connection to MongoDB.
+A `Mongo::Client` instance represents a connection to MongoDB.
 
 ```ruby
-connection = Mongo::Connection.new("localhost", 27017, :safe => true)
+mongo_client = Mongo::Client.new("localhost", 27017)
 ```
 
-The option `:safe => true` is highly recommended.  This specifies that the driver sends a getlasterror command after every update to ensure that the update succeeded.
+The driver will send a getlasterror command after every write to ensure that the write succeeded by default. 
+Prior to version 1.8 of the driver, writes were not acknowledged by default and it was necessary to explicitly specify the option ':safe => true' for write confirmation.  This is no longer the case.  
 
 You can optionally specify the MongoDB server address and port when connecting. The following example shows three ways to connect to the local machine:
 
 ```ruby
-connection = Mongo::Connection.new # (optional host/port args)
-connection = Mongo::Connection.new("localhost")
-connection = Mongo::Connection.new("localhost", 27017)
+mongo_client = Mongo::Client.new # (optional host/port args)
+mongo_client = Mongo::Client.new("localhost")
+mongo_client = Mongo::Client.new("localhost", 27017)
 ```
 
-In these cases, the :safe option defaults to false, and updates are fire-and-forget with higher performance.  We do not recommend the default `:safe => false` unless your application can tolerate the potential loss of updates.
+Note: in each of these cases, writes are confirmed by default.
 
 ### Listing All Databases
 ```ruby
-connection.database_names
-connection.database_info.each { |info| puts info.inspect }
+mongo_client.database_names
+mongo_client.database_info.each { |info| puts info.inspect }
 ```
 
 The `database_info` method returns a hash mapping database names to the size of the database in bytes.
 
 ## Using a Database
 
-You use a Connection instance to obtain an Mongo::DB instance, which represents a named database. The database doesn't have to exist - if it doesn't, MongoDB will create it for you. The following examples use the database "mydb":
+You use a Client instance to obtain an Mongo::DB instance, which represents a named database. The database doesn't have to exist - if it doesn't, MongoDB will create it for you. The following examples use the database "mydb":
 
 ```ruby
-db = connection.db("mydb")
-db = Mongo::Connection.new("localhost", 27017, :safe => true).db("mydb")
+db = mongo_client.db("mydb")
+db = Mongo::Client.new("localhost", 27017).db("mydb")
 ```
 
 At this point, the `db` object will be a connection to a MongoDB server for the specified database. Each DB instance uses a separate socket connection to the server.
@@ -78,7 +79,7 @@ If you're trying to connect to a replica set, see [Replica Sets in Ruby](http://
 
 ### Authentication
 
-MongoDB can be run in a secure mode where access to databases is controlled through name and password authentication.  When run in this mode, any client application must provide a name and password before doing any operations.  In the Ruby driver, you simply do the following with the connected mongo object:
+MongoDB can be run in a secure mode where access to databases is controlled through name and password authentication.  When running in this mode, any client application must provide a name and password before doing any operations.  In the Ruby driver, you simply do the following with the mongo client object:
 
 ```ruby
 auth = db.authenticate(my_user_name, my_password)
@@ -88,7 +89,7 @@ If the name and password are valid for the database, `auth` will be `true`.  Oth
 
 ## Using a Collection
 
-You can get a collection to use using the `collection` method:
+You can get a collection using the `collection` method:
 
 ```ruby
 coll = db.collection("testCollection")
@@ -170,7 +171,7 @@ Note the `_id` element has been added automatically by MongoDB to your document.
 
 #### Reading All of the Documents with a Cursor using `find`
 
-To get all the documents from the collection, we use the `find` method. `find` returns a `Cursor` object, which allows us to iterate over the set of documents that matches our query.  The Ruby driver's Cursor implemented Enumerable, which allows us to use `Enumerable#each`, `Enumerable#map}, etc. For instance:
+To get all the documents from the collection, we use the `find` method. `find` returns a `Cursor` object, which allows us to iterate over the set of documents that matches our query.  The Ruby driver's Cursor implements Enumerable, which allows us to use `Enumerable#each`, `Enumerable#map}, etc. For instance:
 ```ruby
 coll.find.each { |row| puts row.inspect }
 ```
@@ -359,10 +360,10 @@ db.drop_collection("testCollection")
 ```
 ### Drop a Database
 
-To drop a database, use the `drop_database` method on the connection.
+To drop a database, use the `drop_database` method on the mongo client.
 ````ruby
-connection.drop_database("mydb")
-connection.database_names
+mongo_client.drop_database("mydb")
+mongo_client.database_names
 ```
 The dropped database is no longer listed.
 

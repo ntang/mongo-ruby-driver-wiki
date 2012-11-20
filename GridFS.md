@@ -7,7 +7,7 @@ GridFS, which stands for "Grid File Store," is a specification for storing large
 The [Grid class](Mongo/Grid.html) represents the core GridFS implementation. Grid gives you a simple file store, keyed on a unique ID. This means that duplicate filenames aren't a problem. To use the Grid class, first make sure you have a database, and then instantiate a Grid:
 
 
-    @db = Mongo::Connection.new('localhost', 27017, :safe => true).db('social_site')
+    @db = Mongo::Client.new('localhost', 27017).db('social_site')
     @grid = Grid.new(@db)
 
 #### Saving files
@@ -69,13 +69,13 @@ When putting a file, you can set many of these attributes and write arbitrary me
              :metadata     => {'description' => "taken after a game of ultimate"})
 
 
-#### Safe mode
+#### Write Concern
 
-A kind of safe mode is built into the GridFS specification. When you save a file, and MD5 hash is created on the server. If you save the file in safe mode, an MD5 will be created on the client for comparison with the server version. If the two hashes don't match, an exception will be raised.
+A kind of write concern is built into the GridFS specification. When you save a file, a MD5 hash is created on the server. If you save the file with writes acknowledged, a MD5 will be created by the driver for comparison with the server version. If the two hashes don't match, an exception will be raised.  Writes are acknowledged by default in versions > 1.8 of the driver.  You can change write concern with the :w option.  See [[Write Concern]]
 
 
     image = File.open("me.jpg")
-    id2   = @grid.put(image, "my-avatar.jpg", :safe => true) 
+    id2   = @grid.put(image, "my-avatar.jpg") 
 
 
 #### Deleting files
@@ -92,7 +92,7 @@ Deleting a file is as simple as providing the id:
 
 #### Saving files
 
-    @db = Mongo::Connection.new('localhost', 27017, :safe => true).db("social_site")
+    @db = Mongo::Client.new('localhost', 27017).db("social_site")
     @fs = GridFileSystem.new(@db)
 
 Now suppose we want to save the file 'me.jpg.' This is easily done using a filesystem-like API:
@@ -119,7 +119,7 @@ No problems there. But what if we need to replace the file? That too is straight
     end 
 
 
-But a couple things need to be kept in mind. First is that the original 'me.jpg' will be available until the new 'me.jpg' saves. From then on, calls to the #open method will always return the most recently saved version of a file. But, and this the second point, old versions of the file won't be deleted. So if you're going to be rewriting files often, you could end up with a lot of old versions piling up. One solution to this is to use the :delete_old options when writing a file:
+But a couple things need to be kept in mind. First is that the original 'me.jpg' will be available until the new 'me.jpg' saves. From then on, calls to the #open method will always return the most recently saved version of a file. But-- and this the second point-- old versions of the file won't be deleted. So if you're going to be rewriting files often, you could end up with a lot of old versions piling up. One solution to this is to use the :delete_old options when writing a file:
 
 
     image = File.open("me-dancing.jpg")
@@ -139,17 +139,17 @@ When you delete a file by name, you delete all versions of that file:
     @fs.delete("me.jpg")
 
 
-#### Metadata and safe mode
+#### Metadata and acknowledged writes
 
-All of the options for storing metadata and saving in safe mode are available for the GridFileSystem class:
+All of the options for storing metadata and acknowledging writes are available for the GridFileSystem class:
 
 
     image = File.open("me.jpg")
     @fs.open('my-avatar.jpg', w,  
                :content_type => "application/jpg", 
                :metadata     => {'description' => "taken on 3/1/2010 after a game of ultimate"},
-               :_id          => 'a-unique-id-to-use-instead-of-the-automatically-generated-one',
-               :safe         => true) { |f| f.write image }
+               :_id          => 'a-unique-id-to-use-instead-of-the-automatically-generated-one'
+               ) { |f| f.write image }
 
 
 ### Advanced Users
