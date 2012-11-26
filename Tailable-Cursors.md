@@ -17,7 +17,7 @@ Note that tailable cursors are for capped collections only.
         def test_tailable
 
           # Create a connection and capped collection.
-          @mongo_client = Client.new('localhost', 27017)
+          @mongo_client = MongoClient.new('localhost', 27017)
           @db  = @mongo_client['test']
           @db.drop_collection('log')
           @capped = @db.create_collection('log', :capped => true, :size => 1024)

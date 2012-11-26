@@ -6,9 +6,10 @@ This is a list of frequently asked questions about using Ruby with MongoDB. If y
 
 Yes. You can run any of the [available database commands|List of Database Commands] from the driver using the DB#command method. The only trick is to use an OrderedHash when specifying the command. For example, here's how you'd run an asynchronous fsync from the driver:
 
-
+    include Mongo
+    
     # This command is run on the admin database.
-    @db = Mongo::Client.new('localhost', 27017).db('admin')
+    @db = MongoClient.new('localhost', 27017).db('admin')
 
     # Build the command.
     cmd = OrderedHash.new

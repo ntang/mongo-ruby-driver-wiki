@@ -6,12 +6,12 @@ Here follow a few considerations for those using the MongoDB Ruby driver with [r
 
 First, make sure that you've configured and initialized a replica set.
 
-Use `ReplSetClient.new` to connect to a replica set. This method, which accepts a variable number of arguments,
+Use `MongoReplicaSetClient.new` to connect to a replica set. This method, which accepts a variable number of arguments,
 takes a list of seed nodes followed by any connection options. You'll want to specify at least two seed nodes. This gives
 the driver more chances to connect in the event that any one seed node is offline. Once the driver connects, it will
 cache the replica set topology as reported by the given seed node and use that information if a failover is later required.
 ```ruby
-@mongo_client = ReplSetClient.new(
+@mongo_client = MongoReplicaSetClient.new(
   ['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017']
 )
 ``` 
@@ -19,9 +19,9 @@ Note that in driver version >= 1.8, writes are confirmed by default.  This can b
 
 ### Read slaves
 
-If you want to read from a secondary node, you can pass :read => :secondary to ReplSetClient#new.
+If you want to read from a secondary node, you can pass :read => :secondary to MongoReplicaSetClient#new.
 ```ruby
-@mongo_client = ReplSetClient.new(
+@mongo_client = MongoReplicaSetClient.new(
   ['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017'],
   :read => :secondary
 )
@@ -62,11 +62,11 @@ having to manually restart your app server, then you should enable it. You can e
 synchronously, which will refresh the replica set data in a synchronous fashion (which may
 occasionally slow down your queries):
 ```ruby
-@mongo_client = ReplSetClient.new(['n1.mydb.net:27017'], :refresh_mode => :sync)
+@mongo_client = MongoReplicaSetClient.new(['n1.mydb.net:27017'], :refresh_mode => :sync)
 ```
 If you want to change the default refresh interval of 90 seconds, you can do so like this:
 ```ruby
-@mongo_client = ReplSetClient.new(
+@mongo_client = MongoReplicaSetClient.new(
   ['n1.mydb.net:27017'],
   :refresh_mode => :sync,
   :refresh_interval => 60
@@ -76,7 +76,7 @@ Do not set this value to anything lower than 30, or you may start to experience 
 
 You can also disable refresh mode altogether:
 ```ruby
-@mongo_client = ReplSetClient.new(
+@mongo_client = MongoReplicaSetClient.new(
   ['n1.mydb.net:27017'],
   :refresh_mode => false
 )

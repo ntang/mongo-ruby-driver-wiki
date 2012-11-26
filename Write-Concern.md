@@ -22,7 +22,7 @@ The Ruby driver allows you to set write concern on each of four levels: the mong
 Objects inherit the default write concern from their direct parents. If you set a write concern of `{:w => 0}` when creating
 a new mongo client, then all databases and collections created from that connection will inherit the same setting. See this code example:
 
-    @mongo_client = Mongo::Client.new('localhost', 27017, :w => 0)
+    @mongo_client = MongoClient.new('localhost', 27017, :w => 0)  # include Mongo module above
     @db  = @mongo_client['test']
     @collection = @db['foo']
     @collection.save({:name => 'foo'})

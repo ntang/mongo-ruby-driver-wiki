@@ -34,13 +34,14 @@ Use the `mongo` gem via the `require` kernel method.
 ```ruby
 require 'rubygems'  # not necessary for Ruby 1.9
 require 'mongo'
+include Mongo
 ```
 ### Making a Connection
 
-A `Mongo::Client` instance represents a connection to MongoDB.
+A `MongoClient` instance represents a connection to MongoDB.
 
 ```ruby
-mongo_client = Mongo::Client.new("localhost", 27017)
+mongo_client = MongoClient.new("localhost", 27017)
 ```
 
 The driver will send a getlasterror command after every write to ensure that the write succeeded by default. 
@@ -49,9 +50,9 @@ Prior to version 1.8 of the driver, writes were not acknowledged by default and 
 You can optionally specify the MongoDB server address and port when connecting. The following example shows three ways to connect to the local machine:
 
 ```ruby
-mongo_client = Mongo::Client.new # (optional host/port args)
-mongo_client = Mongo::Client.new("localhost")
-mongo_client = Mongo::Client.new("localhost", 27017)
+mongo_client = MongoClient.new # (optional host/port args)
+mongo_client = MongoClient.new("localhost")
+mongo_client = MongoClient.new("localhost", 27017)
 ```
 
 Note: in each of these cases, writes are confirmed by default.
@@ -66,11 +67,11 @@ The `database_info` method returns a hash mapping database names to the size of 
 
 ## Using a Database
 
-You use a Client instance to obtain an Mongo::DB instance, which represents a named database. The database doesn't have to exist - if it doesn't, MongoDB will create it for you. The following examples use the database "mydb":
+You use a Mongo::MongoClient instance to obtain an Mongo::DB instance, which represents a named database. The database doesn't have to exist - if it doesn't, MongoDB will create it for you. The following examples use the database "mydb":
 
 ```ruby
 db = mongo_client.db("mydb")
-db = Mongo::Client.new("localhost", 27017).db("mydb")
+db = MongoClient.new("localhost", 27017).db("mydb")
 ```
 
 At this point, the `db` object will be a connection to a MongoDB server for the specified database. Each DB instance uses a separate socket connection to the server.
