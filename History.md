@@ -4,10 +4,9 @@
 2012-11-27
 
 * New top level class Mongo::MongoClient acknowledges writes by default
-  a new write concern interface at Client, DB, Collection, and Operation levels
 * New top level class Mongo::ReplSetClient acknowledges writes by default
-* MongoClient, MongoReplicaSetClient, MongoShardedClient and GridFS implement
 * New top level class Mongo::ShardedClient acknowledges writes by default
+* MongoClient, MongoReplicaSetClient, MongoShardedClient and GridFS implement a new write concern interface at Client, DB, Collection, and Operation levels
 * Deprecation of Mongo::Connection in favor of Mongo::MongoClient
 * Deprecation of Mongo::ReplSetConnection in favor of Mongo::MongoReplicaSetClient
 * Deprecation of Mongo::ShardedConnection in favor of Mongo::MongoShardedClient
