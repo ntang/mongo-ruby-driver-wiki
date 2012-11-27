@@ -14,7 +14,7 @@ cache the replica set topology as reported by the given seed node and use that i
 @mongo_client = MongoReplicaSetClient.new(
   ['n1.mydb.net:27017', 'n2.mydb.net:27017', 'n3.mydb.net:27017']
 )
-``` 
+```
 Note that in driver version >= 1.8, writes are confirmed by default.  This can be changed with the :w option.  For versions prior to 1.8, we recommended specifying :safe => true for write confirmation.
 
 ### Read slaves

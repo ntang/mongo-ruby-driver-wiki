@@ -1,5 +1,23 @@
 # MongoDB Ruby Driver History
 
+### 1.8.0
+2012-11-27
+
+* New top level class Mongo::MongoClient acknowledges writes by default
+  a new write concern interface at Client, DB, Collection, and Operation levels
+* New top level class Mongo::ReplSetClient acknowledges writes by default
+* MongoClient, MongoReplicaSetClient, MongoShardedClient and GridFS implement
+* New top level class Mongo::ShardedClient acknowledges writes by default
+* Deprecation of Mongo::Connection in favor of Mongo::MongoClient
+* Deprecation of Mongo::ReplSetConnection in favor of Mongo::MongoReplicaSetClient
+* Deprecation of Mongo::ShardedConnection in favor of Mongo::MongoShardedClient
+* Allow specification of comment query opt (Evan Broder)
+* Fix for pool authentication and logout (Olivier Bonnaure)
+* Fix for cursor not being closed in presense of exceptions (Simon Simeonov)
+* Fix for data send failure not closing socket (Nelson Elhage)
+* Dropped support for JRUBY < 1.7
+* Tutorials and non code documentation moved to GitHub wiki 
+
 ### 1.7.0
 2012-08-20
 

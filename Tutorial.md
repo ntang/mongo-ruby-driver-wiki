@@ -40,6 +40,7 @@ require 'mongo'
 A `MongoClient` instance represents a connection to MongoDB.
 
 ```ruby 
+
 include Mongo 
 
 mongo_client = MongoClient.new("localhost", 27017)
