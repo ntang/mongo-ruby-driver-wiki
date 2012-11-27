@@ -18,6 +18,12 @@
 * Dropped support for JRUBY < 1.7
 * Tutorials and non code documentation moved to GitHub wiki 
 
+
+### 1.7.1
+2012-11-16
+
+* Adding a fix for an issue that was breaking replica set connections when utilizing database authentication.
+
 ### 1.7.0
 2012-08-20
 
