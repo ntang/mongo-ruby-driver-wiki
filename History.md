@@ -15,7 +15,6 @@
 * Fix for pool authentication and logout (Olivier Bonnaure)
 * Fix for cursor not being closed in presense of exceptions (Simon Simeonov)
 * Fix for data send failure not closing socket (Nelson Elhage)
-* Dropped support for JRUBY < 1.7
 * Tutorials and non code documentation moved to GitHub wiki 
 
 
