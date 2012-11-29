@@ -1,5 +1,7 @@
 ## Basic Features
 * [[Tutorial]]
+* [[Examples]]
+* [[Web Examples]]
 * [[FAQ]]
 
 ## Multiple Nodes
