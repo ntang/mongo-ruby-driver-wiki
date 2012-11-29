@@ -15,6 +15,7 @@
 * Fix for cursor not being closed in presense of exceptions (Simon Simeonov)
 * Fix for data send failure not closing socket (Nelson Elhage)
 * Tutorials and non code documentation moved to GitHub wiki 
+* Provided binary mongo_client has been renamed to mongo_console
 
 
 ### 1.7.1
