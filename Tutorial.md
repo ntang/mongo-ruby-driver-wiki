@@ -384,5 +384,4 @@ p db.validate_collection('coll_name')
 ```
 ## See Also
 
-* [MongoDB Koans](http://github.com/chicagoruby/MongoDB_Koans) A path to MongoDB enlightenment via the Ruby driver.
 * [MongoDB Manual](http://www.mongodb.org/display/DOCS/Developer+Zone)
