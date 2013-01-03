@@ -1,5 +1,14 @@
 # MongoDB Ruby Driver History
 
+### 1.8.1
+2013-01-03
+
+* Support sending $readPreference to mongos
+* Fix thread leaks in MongoReplicaSetClient (Chris Heald)
+* Java extension cleanup
+* Improved index creation interface (Steve Francia)
+* Support read preference for various commands (Nelson Elhage)
+
 ### 1.8.0
 2012-11-27
 
@@ -12,7 +21,7 @@
 * Deprecation of Mongo::ShardedConnection in favor of Mongo::MongoShardedClient
 * Allow specification of comment query opt (Evan Broder)
 * Fix for pool authentication and logout (Olivier Bonnaure)
-* Fix for cursor not being closed in presense of exceptions (Simon Simeonov)
+* Fix for cursor not being closed in presence of exceptions (Simon Simeonov)
 * Fix for data send failure not closing socket (Nelson Elhage)
 * Tutorials and non code documentation moved to GitHub wiki 
 * Provided binary mongo_client has been renamed to mongo_console
