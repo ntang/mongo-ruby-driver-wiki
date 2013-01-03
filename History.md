@@ -8,6 +8,7 @@
 * Java extension cleanup
 * Improved index creation interface (Steve Francia)
 * Support read preference for various commands (Nelson Elhage)
+* Added UNIX socket support (thanks to @vpereira for initial contribution)
 
 ### 1.8.0
 2012-11-27
