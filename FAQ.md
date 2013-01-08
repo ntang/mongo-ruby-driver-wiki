@@ -6,19 +6,19 @@ This is a list of frequently asked questions about using Ruby with MongoDB. If y
 
 Yes. You can run any of the [available database commands](http://docs.mongodb.org/manual/reference/command/) from the driver using the DB#command method. The only trick is to use an OrderedHash when specifying the command. For example, here's how you'd run an asynchronous fsync from the driver:
 
-    include Mongo
+```ruby
+include Mongo
     
-    # This command is run on the admin database.
-    @db = MongoClient.new('localhost', 27017).db('admin')
+# This command is run on the admin database.
+@db = MongoClient.new('localhost', 27017).db('admin')
 
-    # Build the command.
-    cmd = OrderedHash.new
-    cmd['fsync'] = 1
-    cmd['async'] = true
+# Build the command.
+cmd = OrderedHash.new
+cmd['fsync'] = 1
 
-    # Run it.
-    @db.command(cmd)
-
+# Run it.
+@db.command(cmd)
+```
 
 It's important to keep in mind that some commands, like `fsync`, must be run on the `admin` database, while other commands can be run on any database. If you're having trouble, check the [command reference|List of Database Commands] to make sure you're using the command correctly.
 
@@ -26,29 +26,10 @@ It's important to keep in mind that some commands, like `fsync`, must be run on 
 
 Yes. `explain` is, technically speaking, an option sent to a query that tells MongoDB to return an explain plan rather than the query's results. You can use `explain` by constructing a query and calling explain at the end:
 
-
-    @collection = @db['users']
-    result = @collection.find({:name => "jones"}).explain
-
-
-The resulting explain plan might look something like this:
-
-
-    {"cursor"=>"BtreeCursor name_1", 
-     "startKey"=>{"name"=>"Jones"}, 
-     "endKey"=>{"name"=>"Jones"}, 
-     "nscanned"=>1.0, 
-     "n"=>1, 
-     "millis"=>0, 
-     "oldPlan"=>{"cursor"=>"BtreeCursor name_1", 
-                   "startKey"=>{"name"=>"Jones"}, 
-                   "endKey"=>{"name"=>"Jones"}
-     },
-     "allPlans"=>[{"cursor"=>"BtreeCursor name_1", 
-                     "startKey"=>{"name"=>"Jones"}, 
-                     "endKey"=>{"name"=>"Jones"`]
-     }
-
+```ruby
+@collection = @db['users']
+result = @collection.find({:name => "jones"}).explain
+```
 
 Because this collection has an index on the "name" field, the query uses that index, only having to scan a single record. "n" is the number of records the query will return. "millis" is the time the query takes, in milliseconds. "oldPlan" indicates that the query optimizer has already seen this kind of query and has, therefore, saved an efficient query plan. "allPlans" shows all the plans considered for this query.
 
@@ -56,19 +37,19 @@ Because this collection has an index on the "name" field, the query uses that in
 
 You can store Ruby symbols in MongoDB, but only as values. BSON specifies that document keys must be strings. So, for instance, you can do this:
 
+```ruby
+@collection = @db['test']
 
-    @collection = @db['test']
+boat_id = @collection.save({:vehicle  => :boat})
+car_id  = @collection.save({"vehicle" => "car"})
 
-    boat_id = @collection.save({:vehicle  => :boat})
-    car_id  = @collection.save({"vehicle" => "car"})
-
-    @collection.find_one('_id' => boat_id)
-    {"_id" => ObjectID('4bb372a8238d3b5c8c000001'), "vehicle" => :boat}
+@collection.find_one('_id' => boat_id)
+{"_id" => ObjectID('4bb372a8238d3b5c8c000001'), "vehicle" => :boat}
 
 
-    @collection.find_one('_id' => car_id)
-    {"_id" => ObjectID('4bb372a8238d3b5c8c000002'), "vehicle" => "car"}
-
+@collection.find_one('_id' => car_id)
+{"_id" => ObjectID('4bb372a8238d3b5c8c000002'), "vehicle" => "car"}
+```
 
 Notice that the symbol values are returned as expected, but that symbol keys are treated as strings.
 
@@ -96,11 +77,13 @@ There are two solutions to this problem. You can either:
 
 2. Turn off the cursor timeout. To do that, invoke `find` with a block, and pass `:timeout => true`:
 
-        @collection.find({}, :timeout => false) do |cursor|
-          cursor.each do |document
-            # Process documents here
-          end
-        end
+```ruby
+@collection.find({}, :timeout => false) do |cursor|
+  cursor.each do |document
+    # Process documents here
+  end
+end
+```
 
 #### I periodically see connection failures between the driver and MongoDB. Why can't the driver retry the operation automatically?
 
