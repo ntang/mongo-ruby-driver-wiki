@@ -6,12 +6,16 @@ Read preferences determine the candidate replica set members to which a query or
 
 Read preference mode is configured by providing the read option to a connection, database, collection, or cursor.
 
-    @collection.find({:doc => 'foo'}, :read => :primary)    # read from primary only
-    @collection.find({:doc => 'foo'}, :read => :secondary)  # read from secondaries only
+```ruby
+@collection.find({:doc => 'foo'}, :read => :primary)    # read from primary only
+@collection.find({:doc => 'foo'}, :read => :secondary)  # read from secondaries only
+```
 
 Used in conjunction with tag_sets:
 
-    @collection.find({:name => 'foo'}, :read => :secondary_preferred, :tag_sets => [{:continent => 'USA'}])
+```ruby
+@collection.find({:name => 'foo'}, :read => :secondary_preferred, :tag_sets => [{:continent => 'USA'}])
+```
 
 *Please Note*: Behavior of some read preference modes have changed in version 1.7.0:
 
@@ -24,24 +28,28 @@ The Ruby driver allows you to set read preference on each of four levels: the co
 Objects will inherit the default read preference from their parents. Thus, if you set a read preference of `{:read => :secondary}` when creating
 a new connection, then all databases and collections created from that connection will inherit the same setting. See this code example:
 
-    require 'mongo'
-    include Mongo
+```ruby
+require 'mongo'
+include Mongo
 
-    @mongo_client = MongoReplicaSetClient.new(['localhost:27017','localhost:27018'], :read => :secondary)
-    @db  = @mongo_client['test']
-    @collection = @db['foo']
-    @collection.find({:name => 'foo'})
+@mongo_client = MongoReplicaSetClient.new(['localhost:27017','localhost:27018'], :read => :secondary)
+@db  = @mongo_client['test']
+@collection = @db['foo']
+@collection.find({:name => 'foo'})
 
-    @collection.find({:name => 'bar'}, :read => :primary)
+@collection.find({:name => 'bar'}, :read => :primary)
+```
 
 Here, the first call to Collection#find will use the inherited read preference, `{:read => :secondary}`. But the second call
 to Collection#find overrides this setting by setting the preference to `:primary`.
 
 You can examine the read preference on any object by calling its `read_preference` method:
 
-    @mongo_client.read_preference
-    @db.read_preference
-    @collection.read_preference
+```ruby
+@mongo_client.read_preference
+@db.read_preference
+@collection.read_preference
+```
 
 ## Modes
 
@@ -89,7 +97,9 @@ A member matches a tag set if its tags match all the tags in the set. For exampl
 
 Here is an example of a query which sends read operations to members in rack 2.
 
-    @collection.find({:name => 'foo'}, :read => :secondary_preferred, :tag_sets => [{:rack => '2'}])
+```ruby
+@collection.find({:name => 'foo'}, :read => :secondary_preferred, :tag_sets => [{:rack => '2'}])
+```
 
 Tag set keys may be symbols or strings. Tag set values should be specified using strings. The `to_s` method will be called on any values provided in the tag set.
 
@@ -97,6 +107,8 @@ Tag sets are used in conjunction with read preference mode. In this example, bec
 
 If only one tag set is provided, the set can be passed as a single hash parameter itself without the enclosing array.
 
-    @collection.find({:name => 'foo'}, :read => :secondary_preferred, :tag_sets => {:rack => '2'})
+```ruby
+@collection.find({:name => 'foo'}, :read => :secondary_preferred, :tag_sets => {:rack => '2'})
+```
 
 Specifying tag_sets for mode `:primary` is considered an error and will raise a MongoArgumentError as tag_sets do not affect selection of primary members and only primary members can be selected in that particular mode.
