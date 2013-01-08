@@ -365,7 +365,7 @@ db.drop_collection("testCollection")
 ### Drop a Database
 
 To drop a database, use the `drop_database` method on the mongo client.
-````ruby
+```ruby
 mongo_client.drop_database("mydb")
 mongo_client.database_names
 ```
