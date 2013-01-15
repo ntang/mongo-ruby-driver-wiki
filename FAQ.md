@@ -75,7 +75,7 @@ There are two solutions to this problem. You can either:
 
 1. Limit your query. Use some combination of `limit` and `skip` to reduce the total number of query results. This will, obviously, bring down the time it takes to iterate.
 
-2. Turn off the cursor timeout. To do that, invoke `find` with a block, and pass `:timeout => true`:
+2. Turn off the cursor timeout. To do that, invoke `find` with a block, and pass `:timeout => false`:
 
 ```ruby
 @collection.find({}, :timeout => false) do |cursor|
