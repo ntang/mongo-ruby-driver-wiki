@@ -1,6 +1,12 @@
 # MongoDB Ruby Driver History
 
-### 1.8.1
+### 1.8.2
+2013-01-17
+
+* Fix for thread affinity not using the max socket pool size (RUBY-532)
+* Fix for meta operator failure on older versions of MongoDB (RUBY-525)
+
+### 1.8.1 (pulled)
 2013-01-03
 
 * Support sending $readPreference to mongos
