@@ -25,6 +25,8 @@ This policy will clearly indicate to users when an upgrade may affect their code
 - Access to the 10gen/ops repo
 - Push access to rubygems
 
+### Checklist
+
 Before each relese to Rubygems.org, the following steps will be taken:
 
 1. All driver tests will be run on Linux, OS X, and Windows via continuous integration system.
