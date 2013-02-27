@@ -20,6 +20,11 @@ This policy will clearly indicate to users when an upgrade may affect their code
 
 ## Release checklist
 
+### Prerequisites
+
+- Access to the 10gen/ops repo
+- Push access to rubygems
+
 Before each relese to Rubygems.org, the following steps will be taken:
 
 1. All driver tests will be run on Linux, OS X, and Windows via continuous integration system.
@@ -47,7 +52,7 @@ Before each relese to Rubygems.org, the following steps will be taken:
     gem install foo-1.0.0.gem -P HighSecurity
     ```
 
-9. Push tags and commit to GitHub (`git push origin master`, `git push --tags`).
+9. Push tags and commits to GitHub (`git push origin master`, `git push --tags`).
 
 10. Build and push docs. (git: mongodb/apidocs) See README in that repo for more info.
 
