@@ -1,5 +1,11 @@
 # MongoDB Ruby Driver History
 
+### 1.8.3.rc1
+2013-02-27
+
+* Fixes for replica set routing of OP_KILL_CURSORS and OP_GET_MORE
+* Replica set tests now use 3 members and no arbiters
+
 ### 1.8.3.rc0
 2013-02-14
 
@@ -8,7 +14,6 @@
 * Corrected logic for how the connection pool refreshes and cleans-up sockets (RUBY-543)
 * Fixed read preferences for MongoShardedClient (RUBY-542)
 * Fixed URI connection string parsing for MongoShardedClient (RUBY-541)
-* Fixed OP_KILL_CURSORS being sent to the wrong replica set member (RUBY-545)
 * Fixed potential thread dead-locking in Pool#checkin (RUBY-556)
 * Fixed thread-safety issues in the BSON extension for JRuby (RUBY-554)
 * Fixed issue caused by external timeouts which resulted in socket mangling (RUBY-550)
