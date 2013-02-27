@@ -23,28 +23,45 @@ This policy will clearly indicate to users when an upgrade may affect their code
 Before each relese to Rubygems.org, the following steps will be taken:
 
 1. All driver tests will be run on Linux, OS X, and Windows via continuous integration system.
+    - Ruby 2.0.0
+    - Ruby 1.9.3
+    - Ruby 1.8.7
+    - JRuby 1.7+ (1.9 mode)
 
-2. Update the HISTORY file and document all significant commits.
+2. Update the HISTORY wiki page and document all significant commits.
 
-3. Update the version in lib/bson.rb, lib/mongo/version.rb, and ext/cbson/version.h.
+3. Update the version in VERSION and ext/cbson/version.h.
 
-4. Commit: "RELEASE [VERSION]"
+4. Commit: "RELEASE [VERSION]" `git commit -m 'RELEASE [version]'`
 
-5. git tag [version]
+5. Tag: `git tag [version]`
 
-6. Build gems. Ensure that they have the correct versions.
+6. Copy gem-private_key.pem to repository if it hasn't been copied there already during a previous release (don't worry it's in .gitignore and won't be added to the repository in a commit).
 
-7. Push tags and commit to GitHub (git push origin master, git push --tags).
+    ```
+    cp <10gen/ops>/ruby/gem-private_key.pem <mongodb/mongo-ruby-driver>
+    ```
 
-8. Build and push docs. (git: mongodb/apidocs)
+7. Build gems. Ensure that they have the correct versions.
 
-9. Push gems to Rubygems.org.
+8. Validate the signature
 
-10. Test that the gem is downloadable from Rubygems.org.
+    ```sh
+    gem cert --add /path/to/gem-public_cert.pem
+    gem install foo-1.0.0.gem -P HighSecurity
+    ```
 
-11. Close out release in JIRA.
+8. Push tags and commit to GitHub (`git push origin master`, `git push --tags`).
 
-12. Announce release on mongodb-user and mongodb-dev.
+9. Build and push docs. (git: mongodb/apidocs) See README in that repo for more info.
+
+10. Push gems to Rubygems.org.
+
+11. Test that the gem is downloadable from Rubygems.org.
+
+12. Close out release in JIRA.
+
+13. Announce release on mongodb-user and mongodb-dev.
 
 ## Rake Deploy Tasks
 1. rake deploy:change_version[x.x.x]
