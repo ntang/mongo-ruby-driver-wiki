@@ -45,7 +45,7 @@ Before each relese to Rubygems.org, the following steps will be taken:
     cp <10gen/ops>/ruby/gem-private_key.pem <mongodb/mongo-ruby-driver>
     ```
 
-7. Build gems. Ensure that they have the correct versions.
+7. Build gems, starting with bson and bson_ext and then mongo. Ensure that they have the correct versions. 
 
 8. Validate the signature
 
