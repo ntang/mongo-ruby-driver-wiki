@@ -1,5 +1,11 @@
 # MongoDB Ruby Driver History
 
+### 1.8.3
+2013-03-04
+
+* All changes from 1.8.3.rc0 and 1.8.3.rc1 are in this release.
+* Fix so that batch size is applied to initial query (RUBY-558)
+
 ### 1.8.3.rc1
 2013-02-27
 
