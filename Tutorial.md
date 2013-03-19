@@ -201,10 +201,19 @@ To get all the documents from the collection, we use the find method. find retur
 coll.find.each { |row| puts row.inspect }
 ```
 
-and that should print all 101 documents in the collection.  You can take advantage of Enumerable#to_a.
+and that should print all 101 documents in the collection.  You can also take advantage of Enumerable#to_a.
 
 ```ruby
 puts coll.find.to_a
+```
+
+or use #each_slice to get chunks of documents and process them in a batch:
+
+```ruby
+# retrieve and process 10 documents at a time from cursor
+coll.find.each_slice(10) do |slice|
+  puts slice.inspect
+end
 ```
 
 Important note - using `to_a` pulls all of the full result set into memory and is inefficient if you can process by each individual document.  To process with more memory efficiency, use the `each` method with a code block for the cursor.
