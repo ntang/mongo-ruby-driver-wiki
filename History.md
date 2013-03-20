@@ -1,5 +1,13 @@
 # MongoDB Ruby Driver History
 
+### 1.8.4.rc0
+2013-03-19
+
+* Improvements to connection pool pinning behavior when change read preferences (RUBY-475)
+* Explicit exception is now raised on attempts to authenticate multiple users to the same database (RUBY-529)
+* Support for new MongoDB 2.4 index types (RUBY-564)
+* Resolved an issue where Collection#drop caused a fetch of all namespaces, deprecated DB#strict (RUBY-537)
+
 ### 1.8.3
 2013-03-04
 
