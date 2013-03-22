@@ -19,7 +19,7 @@ Write concern is set using the `:w` option. As of driver version 1.8, writes are
 The option, :w => 0, indicates that writes are not acknowledged.
 The option, :w => 1, is the default setting for a mongo client and specifies that writes are acknowledged.
 The option, :w => 2, acknowledges a write to a replica set.  Any integer can be provided for w that indicates the number of nodes to which the write must be applied before it is deemed successful.
-The options :wtimeout and :j may be used with :w, when :w is greater than 0.  In other words, the :wtimeout and :j options may be used in conjunction with acknowledged writes.
+The options :j, :fsync and :wtimeout may be used with :w, when :w is greater than 0.  In other words, the :wtimeout and :j options may be used in conjunction with acknowledged writes.
 
 
 ## Write concern inheritance
