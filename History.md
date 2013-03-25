@@ -30,7 +30,6 @@
 * Fixed URI connection string parsing for MongoShardedClient (RUBY-541)
 * Fixed potential thread dead-locking in Pool#checkin (RUBY-556)
 * Fixed thread-safety issues in the BSON extension for JRuby (RUBY-554)
-* Fixed issue caused by external timeouts which resulted in socket mangling (RUBY-550)
 
 ### 1.8.2
 2013-01-17
