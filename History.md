@@ -4,6 +4,7 @@
 2013-03-26
 
 * Support for MongoDB 2.4 and all changes from 1.8.4.rc0 are in this release.
+* Fixed warning during C extension compilation (RUBY-567)
 
 ### 1.8.4.rc0
 2013-03-19
