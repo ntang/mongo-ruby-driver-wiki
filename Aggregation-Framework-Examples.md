@@ -79,9 +79,11 @@ The result:
 {"_id"=>"IL", "total_pop"=>11430472}
 {"_id"=>"CA", "total_pop"=>29760021}
 ```
-The above aggregate runs two pipelines: `$group` and `$match`.
 
-The `$group` pipeline reads all documents and creates a separate
+The above aggregate runs two pipeline operator processes:
+`$group` and `$match`.
+
+The `$group` process reads all documents and creates a separate
 document for each state. This document contains two fields:
 `_id` and `total_pop`. The `total_pop` field uses the `$sum`
 operation to sum the values of all `pop` fields in the source documents.
@@ -92,15 +94,16 @@ The `$group` pipeline produces the following documents:
 {"_id"=>"WA", "total_pop"=>4866692}
 ```
 
-The `$match` pipeline filters these documents so that the only documents
-that remain are those where the value of `total_pop` is greater than
-or equal to 10 million.
+The `$group` process pipes produced documents to the `$match` process
+which filters documents so that the only documents that remain are
+those where the value of `total_pop` is greater than or equal to 10
+million.
 
 
 ## Average City Population by State
 
 To return the first three states with the greatest average population
-per city, use the following aggregation operation:
+per city, use the following aggregation:
 
 ```ruby
 puts coll.aggregate([
@@ -119,7 +122,7 @@ This aggregate pipeline produces:
 {"_id"=>"CA", "avg_city_pop"=>27735.341099720412}
 ```
 
-The `$group` pipeline produces the following documents:
+The `$group` process produces the following documents:
 
 ```ruby
 {"_id"=>{"state"=>"WY", "city"=>"Smoot"}, "pop"=>414}
