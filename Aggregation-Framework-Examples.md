@@ -64,3 +64,10 @@ In these documents:
 ## States with Populations Over 10 Million
 
 To return all states with a population greater than 10 million, use the following aggregation operation:
+
+```ruby
+puts coll.aggregate([
+  {"$group" => {_id: "$state", total_pop: {"$sum" => "$pop"}}},
+  {"$match" => {total_pop: {"$gte" => 10_000_000}}}
+])
+```
