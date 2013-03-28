@@ -60,7 +60,8 @@ In these documents:
 
 ## States with Populations Over 10 Million
 
-To return all states with a population greater than 10 million, use the following aggregation operation:
+To produce all states with a population greater than 10 million, use
+the following aggregation operation:
 
 ```ruby
 puts coll.aggregate([
@@ -102,7 +103,7 @@ million.
 
 ## Average City Population by State
 
-To return the first three states with the greatest average population
+To produce the first three states with the greatest average population
 per city, use the following aggregation:
 
 ```ruby
