@@ -14,7 +14,7 @@ These data are available at: [zips.json](http://media.mongodb.org/zips.json).
 [Ruby MongoDB Driver](https://github.com/mongodb/mongo-ruby-driver),
 version 1.8.4 or later. Ruby, version 1.9.3 or later.
 
-Let’s check if everything works.
+Let’s check if everything is installed.
 
 Use the following command to load *zips.json* data set into mongod
 instance:
