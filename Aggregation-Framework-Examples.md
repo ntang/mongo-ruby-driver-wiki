@@ -6,18 +6,34 @@ available data set of all zipcodes and populations in the United
 States.
 
 These data are available at: [zips.json](http://media.mongodb.org/zips.json).
-Use the following command to load this data set into your mongod instance:
 
-```sh
-mongoimport --drop -d test -c zipcodes zips.json
-```
 
 ## Requirements
 
 [MongoDB](http://www.mongodb.org/downloads), version 2.4.1 or later.
 [Ruby MongoDB Driver](https://github.com/mongodb/mongo-ruby-driver),
-version 1.8.4 or later.
+version 1.8.4 or later. Ruby, version 1.9.3 or later.
 
+Let’s check if everything works.
+
+Use the following command to load *zips.json* data set into mongod
+instance:
+
+```sh
+mongoimport --drop -d test -c zipcodes zips.json
+```
+
+On the *irb* console run:
+
+```ruby
+require "mongo"
+include Mongo
+
+db = MongoClient.new("localhost", 27017, w: 1).db("test")
+coll = db.collection("zipcodes")
+coll.count     #=> should return 29467
+coll.find_one
+```
 
 ## Aggregations using the Zip Code Data Set
 
@@ -40,3 +56,11 @@ In these documents:
 * The `state` field holds the two letter state abbreviation.
 * The `pop` field holds the population.
 * The `loc` field holds the location as a latitude longitude pair.
+
+
+
+
+
+## States with Populations Over 10 Million
+
+To return all states with a population greater than 10 million, use the following aggregation operation:
