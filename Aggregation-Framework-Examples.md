@@ -55,7 +55,7 @@ In these documents:
 * The `city` field holds the city name.
 * The `state` field holds the two letter state abbreviation.
 * The `pop` field holds the population.
-* The `loc` field holds the location as a \[*latitude*, *longitude*\] pair.
+* The `loc` field holds the location as a *[*latitude*, *longitude*]* pair.
 
 
 ## States with Populations Over 10 Million
