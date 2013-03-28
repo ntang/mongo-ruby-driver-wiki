@@ -82,3 +82,19 @@ Results:
 {"_id"=>"IL", "total_pop"=>11430472}
 {"_id"=>"CA", "total_pop"=>29760021}
 ```
+The above aggregate runs two pipelines: `$group` and `$match`.
+
+The `$group` pipeline reads all documents and creates a separate
+document for each state. This document contains two fields:
+`_id` and `total_pop`. The `total_pop` field uses the `$sum`
+operation to sum the values of all `pop` fields in the source documents.
+
+The `$group` pipeline produces the following documents:
+
+```ruby
+{"_id"=>"WA", "total_pop"=>4866692}
+```
+
+The `$match` pipeline filters these documents so that the only documents
+that remain are those where the value of `total_pop` is greater than
+or equal to 10 million.
