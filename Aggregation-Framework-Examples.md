@@ -58,9 +58,6 @@ In these documents:
 * The `loc` field holds the location as a latitude longitude pair.
 
 
-
-
-
 ## States with Populations Over 10 Million
 
 To return all states with a population greater than 10 million, use the following aggregation operation:
@@ -98,3 +95,40 @@ The `$group` pipeline produces the following documents:
 The `$match` pipeline filters these documents so that the only documents
 that remain are those where the value of `total_pop` is greater than
 or equal to 10 million.
+
+
+## Average City Population by State
+
+To return the average populations for cities in each state, use the
+following aggregation operation:
+
+```ruby
+puts coll.aggregate([
+  {"$group" => {_id: {state: "$state", city: "$city"}, pop: {"$sum" => "$pop"}}},
+  {"$group" => {_id: "$_id.state", avg_city_pop: {"$avg" => "$pop"}}},
+  {"$sort" => {avg_city_pop: 1}}
+])
+```
+
+The last three lines produced by this aggregate pipeline are:
+
+```ruby
+{"_id"=>"CA", "avg_city_pop"=>27735.341099720412}
+{"_id"=>"FL", "avg_city_pop"=>27942.29805615551}
+{"_id"=>"DC", "avg_city_pop"=>303450.0}
+```
+
+The `$group` pipeline produces the following documents:
+
+```ruby
+{"_id"=>{"state"=>"WY", "city"=>"Smoot"}, "pop"=>414}
+```
+
+
+# Quiz
+
+1. What is the result of running this command:
+
+```ruby
+coll.aggregate([])
+```
