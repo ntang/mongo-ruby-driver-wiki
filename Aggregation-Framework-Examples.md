@@ -106,16 +106,17 @@ following aggregation operation:
 puts coll.aggregate([
   {"$group" => {_id: {state: "$state", city: "$city"}, pop: {"$sum" => "$pop"}}},
   {"$group" => {_id: "$_id.state", avg_city_pop: {"$avg" => "$pop"}}},
-  {"$sort" => {avg_city_pop: 1}}
+  {"$sort" => {avg_city_pop: -1}},
+  {"$limit" => 3},
 ])
 ```
 
-The last three lines produced by this aggregate pipeline are:
+This aggregate pipeline produces:
 
 ```ruby
-{"_id"=>"CA", "avg_city_pop"=>27735.341099720412}
-{"_id"=>"FL", "avg_city_pop"=>27942.29805615551}
 {"_id"=>"DC", "avg_city_pop"=>303450.0}
+{"_id"=>"FL", "avg_city_pop"=>27942.29805615551}
+{"_id"=>"CA", "avg_city_pop"=>27735.341099720412}
 ```
 
 The `$group` pipeline produces the following documents:
