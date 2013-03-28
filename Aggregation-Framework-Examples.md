@@ -132,7 +132,7 @@ The `$group` process produces the following documents:
 
 # Quiz
 
-1. What is the result of running this command:
+1. What is the result of running this empty aggregate:
 
 ```ruby
 coll.aggregate([])
