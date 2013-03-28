@@ -71,7 +71,7 @@ puts coll.aggregate([
   {"$match" => {total_pop: {"$gte" => 10_000_000}}}
 ])
 ```
-Results:
+The result:
 
 ```ruby
 {"_id"=>"PA", "total_pop"=>11881643}
