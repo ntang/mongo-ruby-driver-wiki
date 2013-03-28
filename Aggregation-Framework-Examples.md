@@ -99,15 +99,15 @@ or equal to 10 million.
 
 ## Average City Population by State
 
-To return the average populations for cities in each state, use the
-following aggregation operation:
+To return the first three states with the greatest average population
+per city, use the following aggregation operation:
 
 ```ruby
 puts coll.aggregate([
   {"$group" => {_id: {state: "$state", city: "$city"}, pop: {"$sum" => "$pop"}}},
   {"$group" => {_id: "$_id.state", avg_city_pop: {"$avg" => "$pop"}}},
   {"$sort" => {avg_city_pop: -1}},
-  {"$limit" => 3},
+  {"$limit" => 3}
 ])
 ```
 
