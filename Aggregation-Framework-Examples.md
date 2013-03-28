@@ -71,3 +71,14 @@ puts coll.aggregate([
   {"$match" => {total_pop: {"$gte" => 10_000_000}}}
 ])
 ```
+Results:
+
+```ruby
+{"_id"=>"PA", "total_pop"=>11881643}
+{"_id"=>"OH", "total_pop"=>10847115}
+{"_id"=>"NY", "total_pop"=>17990455}
+{"_id"=>"FL", "total_pop"=>12937284}
+{"_id"=>"TX", "total_pop"=>16986510}
+{"_id"=>"IL", "total_pop"=>11430472}
+{"_id"=>"CA", "total_pop"=>29760021}
+```
