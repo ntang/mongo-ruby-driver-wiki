@@ -210,7 +210,7 @@ After import, the collection *cal*  should contain
 }
 ```
 
-### The 10 most common name days
+### The 6 most common name days
 
 The following aggregation do this:
 
@@ -220,11 +220,11 @@ puts coll.aggregate([
   {"$unwind" => "$names" },
   {"$group" => {_id: "$names", count: {"$sum" => 1}}},
   {"$sort" => {count: -1}},
-  {"$limit" => 10}
+  {"$limit" => 6}
 ])
 ```
 
-The aggregation pipeline yields:
+The above aggregation pipeline yields:
 
 ```ruby
 {"_id"=>"Jana",       "count"=>21}
@@ -233,10 +233,6 @@ The aggregation pipeline yields:
 {"_id"=>"Piotra",     "count"=> 9}
 {"_id"=>"Feliksa",    "count"=> 8}
 {"_id"=>"Leona",      "count"=> 8}
-{"_id"=>"Izydora",    "count"=> 7}
-{"_id"=>"Marcina",    "count"=> 7}
-{"_id"=>"Pawła",      "count"=> 7}
-{"_id"=>"Aleksandra", "count"=> 7}
 ```
 
 
