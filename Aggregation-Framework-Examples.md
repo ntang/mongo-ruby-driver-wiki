@@ -277,3 +277,5 @@ What does this number means?
 puts coll.aggregate([ {"$group" => {_id: 0, total_pop: {"$sum" => "$pop"}}} ])
 #=> {"_id"=>0, "total_pop"=>248690240}
 ```
+
+3\. How many different names is in the *cal* collection?
