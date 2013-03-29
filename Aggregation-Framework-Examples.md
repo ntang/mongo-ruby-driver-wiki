@@ -41,11 +41,11 @@ Each document in this collection has the following form:
 
 ```json
 {
-  "loc" : [-86.51557, 33.584132],
-  "pop" : 6055,
-  "state" : "AL",
   "_id" : "35004",
-  "city" : "Acmar"
+  "city" : "Acmar",
+  "state" : "AL",
+  "pop" : 6055,
+  "loc" : [-86.51557, 33.584132]
 }
 ```
 
@@ -88,7 +88,6 @@ The `$group` pipeline operator requires `_id` field where we specify
 grouping; remaining fields specify how to generate composite value and
 must use one of the group aggregation functions:
 `$addToSet`, `$first`, `$last`, `$max`, `$min`, `$avg`, `$push`, `$sum`.
-
 The `$match` pipeline operator syntax is the same as
 the [read operation](http://docs.mongodb.org/manual/core/read-operations/)
 query syntax.
