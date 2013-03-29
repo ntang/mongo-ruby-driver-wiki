@@ -197,7 +197,7 @@ To run the examples below you need the data set
 Use *mongoimport* to import this data set into MongoDB:
 
 ```sh
-mongoimport --db test --collection cal name_days.json
+mongoimport --drop --db test --collection cal name_days.json
 ```
 
 After import, the collection *cal*  should contain
