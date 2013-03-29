@@ -191,9 +191,23 @@ Four sample documents created by pipeline operators:
 
 ## $unwidning data
 
+Consider a collection *cal* which contains name days
+data in the format:
 
+```json
+{
+  "names" : [ "Mieszka", "Mieczysława", "Marii" ],
+   "date" : { "day" : 1, "month" : 1 }
+}
+```
 
+To run examples you need the data set [name_days.json](/).
 
+Use *mongoimport* to import this data set into MongoDB:
+
+```sh
+mongoimport --db test --collection cal name_days.json
+```
 
 
 # Quiz
