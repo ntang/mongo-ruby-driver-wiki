@@ -130,11 +130,25 @@ This aggregate pipeline produces:
 {"_id"=>"CA", "avg_city_pop"=>27735.341099720412}
 ```
 
-The `$group` process produces the following documents:
+The above aggregation pipeline is build from three pipeline operators:
+`$group`, `$sort` and `$limit`.
+
+The first `$group` operator creates the following documents:
 
 ```ruby
 {"_id"=>{"state"=>"WY", "city"=>"Smoot"}, "pop"=>414}
 ```
+
+The second `$group` uses these documents to create the following
+documents:
+
+```ruby
+{"_id"=>"FL", "avg_city_pop"=>27942.29805615551}
+```
+
+The `$sort` operator pipes these documents sorted by the
+`avg_city_pop` field in descending order the `$limit` operator,
+which outputs the first 3 documents.
 
 
 # Quiz
