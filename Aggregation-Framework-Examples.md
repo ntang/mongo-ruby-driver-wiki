@@ -237,13 +237,13 @@ The above aggregation pipeline yields:
 
 ### Pivot date ↺ names
 
-We want to pivot the data to create a set of name days
-grouped by names or, in other words, to convert
-the original (first) document into the second one:
+We want to pivot the data to create a set of name days grouped by
+names or, in other words, to convert the original (first) documents
+into format of the second document:
 
 ```ruby
 { "date"=>{"day"=>1, "month"=>1}, "names"=>["Mieszka", "Mieczysława", "Marii"] }
-{ "name"=>"Marii", "dates"=>[{}, {}, {}] }
+{ "name"=>"Mateusza", "dates"=>[{"day"=>13, "month"=>11}, {"day"=>21, "month"=>9}]}
 ```
 
 The following aggregation does the trick:
