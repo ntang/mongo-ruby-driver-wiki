@@ -60,7 +60,7 @@ In these documents:
 
 ## States with Populations Over 10 Million
 
-To produce all states with a population greater than 10 million, use
+To return all states with a population greater than 10 million, use
 the following aggregation pipeline:
 
 ```ruby
@@ -110,7 +110,7 @@ million.
 
 ## Average City Population by State
 
-To produce the first three states with the greatest average population
+To return the first three states with the greatest average population
 per city, use the following aggregation:
 
 ```ruby
@@ -149,6 +149,38 @@ documents:
 The `$sort` operator pipes these documents sorted by the
 `avg_city_pop` field in descending order the `$limit` operator,
 which outputs the first 3 documents.
+
+
+## Largest and Smallest Cities by State
+
+To return the smallest and largest cities by population for each
+state, use the following aggregation operation:
+
+```ruby
+puts coll.aggregate([
+  {"$group" => {_id: {state: "$state", city: "$city"}, pop: {"$sum" => "$pop"}}},
+  {"$sort" => {pop: 1}},
+  {"$group" => {_id: "$_id.state",
+      smallest_city: {"$first" => "$_id.city"}, smallest_pop: {"$first" => "$pop"},
+       biggest_city: { "$last" => "$_id.city"},  biggest_pop: { "$last" => "$pop"}}}
+])
+```
+
+Four sample documents created by the first and last pipeline
+operators:
+
+```ruby
+{"_id"=>{"state"=>"AL", "city"=>"Cottondale"}, "pop"=>4727}
+{"_id"=>{"state"=>"MD", "city"=>"Rosedale"}, "pop"=>24835}
+{"_id"=>{"state"=>"MN", "city"=>"Steen"}, "pop"=>526}
+{"_id"=>{"state"=>"CT", "city"=>"Torrington"}, "pop"=>33969}
+
+{"_id"=>"RI", "smallest_city"=>"Clayville", "smallest_pop"=>45, "biggest_city"=>"Cranston", "biggest_pop"=>176404}
+{"_id"=>"OH", "smallest_city"=>"Isle Saint Georg", "smallest_pop"=>38, "biggest_city"=>"Cleveland", "biggest_pop"=>536759}
+{"_id"=>"MD", "smallest_city"=>"Annapolis Juncti", "smallest_pop"=>32, "biggest_city"=>"Baltimore", "biggest_pop"=>733081}
+{"_id"=>"NH", "smallest_city"=>"West Nottingham", "smallest_pop"=>27, "biggest_city"=>"Manchester", "biggest_pop"=>106452}
+
+```
 
 
 # Quiz
