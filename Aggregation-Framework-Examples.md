@@ -169,7 +169,7 @@ puts coll.aggregate([
 ])
 ```
 
-Four sample documents created pipeline operators:
+Four sample documents created by pipeline operators:
 
 ```ruby
 {"_id"=>{"state"=>"AL", "city"=>"Cottondale"}, "pop"=>4727}
