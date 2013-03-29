@@ -205,8 +205,8 @@ After import, the collection *cal*  should contain
 
 ```json
 {
-  "names" : [ "Mieszka", "Mieczysława", "Marii" ],
-   "date" : { "day" : 1, "month" : 1 }
+   "date" : { "day" : 1, "month" : 1 },
+  "names" : [ "Mieszka", "Mieczysława", "Marii" ]
 }
 ```
 
