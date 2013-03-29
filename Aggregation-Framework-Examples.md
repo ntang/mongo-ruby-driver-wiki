@@ -192,8 +192,17 @@ Four sample documents created by pipeline operators:
 
 # Quiz
 
-1. What is the result of running this empty aggregate:
+1\. What is the result of running this empty aggregate:
 
 ```ruby
 coll.aggregate([])
+```
+
+2\. The aggregation below computes `248_690_240`.
+What does this number means?
+
+
+```ruby
+puts coll.aggregate([ {"$group" => {_id: 0, total_pop: {"$sum" => "$pop"}}} ])
+#=> {"_id"=>0, "total_pop"=>248690240}
 ```
