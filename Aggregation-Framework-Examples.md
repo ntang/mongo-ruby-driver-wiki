@@ -235,6 +235,31 @@ The above aggregation pipeline yields:
 {"_id"=>"Leona",      "count"=> 8}
 ```
 
+### Pivot date ↺ names
+
+We want to pivot the data to create a set of name days
+grouped by names or, in other words, to convert
+the original (first) document into the second one:
+
+```ruby
+{ "date"=>{"day"=>1, "month"=>1}, "names"=>["Mieszka", "Mieczysława", "Marii"] }
+{ "name"=>"Marii", "dates"=>[{}, {}, {}] }
+```
+
+The following aggregation does the trick:
+
+```ruby
+puts coll.aggregate([
+  {"$project" => {_id: 0, date: 1, names: 1}},
+  {"$unwind" => "$names"},
+  {"$group" => {_id: "$names", dates: {"$addToSet" => "$date"}}},
+  {"$project" => {name: "$_id", dates: 1, _id: 0}},
+  {"$sort" => {name: 1}}
+])
+```
+
+`$addToSet` could be replaced with `$push`?
+
 
 # Quiz
 
