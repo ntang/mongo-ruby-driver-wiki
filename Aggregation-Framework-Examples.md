@@ -61,7 +61,7 @@ In these documents:
 ## States with Populations Over 10 Million
 
 To produce all states with a population greater than 10 million, use
-the following aggregation operation:
+the following aggregation pipeline:
 
 ```ruby
 puts coll.aggregate([
@@ -81,21 +81,29 @@ The result:
 {"_id"=>"CA", "total_pop"=>29760021}
 ```
 
-The above aggregate runs two pipeline operator processes:
+The above aggregation pipeline is build from two pipeline operators:
 `$group` and `$match`.
 
-The `$group` process reads all documents and creates a separate
-document for each state. This document contains two fields:
-`_id` and `total_pop`. The `total_pop` field uses the `$sum`
-operation to sum the values of all `pop` fields in the source documents.
+The `$group` pipeline operator requires `_id` field where we specify
+grouping; remaining fields specify how to generate composite value and
+must use one of the group aggregation functions:
+`$addToSet`, `$first`, `$last`, `$max`, `$min`, `$avg`, `$push`, `$sum`.
 
-The `$group` pipeline produces the following documents:
+The `$match` pipeline operator syntax is the same as
+the [read operation](http://docs.mongodb.org/manual/core/read-operations/)
+query syntax.
+
+The `$group` process reads all documents and for each state it
+creates a separate document, for example:
 
 ```ruby
 {"_id"=>"WA", "total_pop"=>4866692}
 ```
 
-The `$group` process pipes produced documents to the `$match` process
+The `total_pop` field uses the `$sum` aggregation function
+to sum the values of all `pop` fields in the source documents.
+
+The `$group` process pipes created documents to the `$match` process,
 which filters documents so that the only documents that remain are
 those where the value of `total_pop` is greater than or equal to 10
 million.
