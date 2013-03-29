@@ -169,14 +169,18 @@ puts coll.aggregate([
 ])
 ```
 
-Four sample documents created by the first and last pipeline
-operators:
+Four sample documents created pipeline operators:
 
 ```ruby
 {"_id"=>{"state"=>"AL", "city"=>"Cottondale"}, "pop"=>4727}
 {"_id"=>{"state"=>"MD", "city"=>"Rosedale"}, "pop"=>24835}
 {"_id"=>{"state"=>"MN", "city"=>"Steen"}, "pop"=>526}
 {"_id"=>{"state"=>"CT", "city"=>"Torrington"}, "pop"=>33969}
+
+{"_id"=>{"state"=>"TX", "city"=>"Houston"}, "pop"=>2095918}
+{"_id"=>{"state"=>"CA", "city"=>"Los Angeles"}, "pop"=>2102295}
+{"_id"=>{"state"=>"NY", "city"=>"Brooklyn"}, "pop"=>2300504}
+{"_id"=>{"state"=>"IL", "city"=>"Chicago"}, "pop"=>2452177}
 
 {"_id"=>"RI", "smallest_city"=>"Clayville", "smallest_pop"=>45, "biggest_city"=>"Cranston", "biggest_pop"=>176404}
 {"_id"=>"OH", "smallest_city"=>"Isle Saint Georg", "smallest_pop"=>38, "biggest_city"=>"Cleveland", "biggest_pop"=>536759}
