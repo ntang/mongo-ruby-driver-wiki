@@ -210,6 +210,35 @@ After import, the collection *cal*  should contain
 }
 ```
 
+### The 10 most common name days
+
+The following aggregation do this:
+
+```ruby
+puts coll.aggregate([
+  {"$project" => { names: 1, _id: 0 }},
+  {"$unwind" => "$names" },
+  {"$group" => {_id: "$names", count: {"$sum" => 1}}},
+  {"$sort" => {count: -1}},
+  {"$limit" => 10}
+])
+```
+
+The aggregation pipeline yields:
+
+```ruby
+{"_id"=>"Jana",       "count"=>21}
+{"_id"=>"Marii",      "count"=>16}
+{"_id"=>"Grzegorza",  "count"=> 9}
+{"_id"=>"Piotra",     "count"=> 9}
+{"_id"=>"Feliksa",    "count"=> 8}
+{"_id"=>"Leona",      "count"=> 8}
+{"_id"=>"Izydora",    "count"=> 7}
+{"_id"=>"Marcina",    "count"=> 7}
+{"_id"=>"Pawła",      "count"=> 7}
+{"_id"=>"Aleksandra", "count"=> 7}
+```
+
 
 # Quiz
 
