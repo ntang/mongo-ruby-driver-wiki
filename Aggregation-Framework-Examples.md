@@ -191,22 +191,23 @@ Four sample documents created by pipeline operators:
 
 ## $unwidning data
 
-Consider a collection *cal* which contains name days
-data in the format:
+To run the examples below you need the data set
+[name_days.json](https://raw.github.com/wbzyl/mongo-ruby-driver-wiki/master/data/name_days.json).
+
+Use *mongoimport* to import this data set into MongoDB:
+
+```sh
+mongoimport --db test --collection cal name_days.json
+```
+
+After import, the collection *cal*  should contain
+364 documents in the following format:
 
 ```json
 {
   "names" : [ "Mieszka", "Mieczysława", "Marii" ],
    "date" : { "day" : 1, "month" : 1 }
 }
-```
-
-To run examples you need the data set [name_days.json](/).
-
-Use *mongoimport* to import this data set into MongoDB:
-
-```sh
-mongoimport --db test --collection cal name_days.json
 ```
 
 
