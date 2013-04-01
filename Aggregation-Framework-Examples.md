@@ -189,7 +189,7 @@ Four sample documents created by pipeline operators:
 
 ```
 
-## $unwidning data
+## $unwinding data
 
 To run the examples below you need the data set
 [name_days.json](https://raw.github.com/wbzyl/mongo-ruby-driver-wiki/master/data/name_days.json).
